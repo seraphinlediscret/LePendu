@@ -4,15 +4,9 @@ let button = document.getElementsByClassName("lettre");
 let affichage = document.getElementById("text");
 let canvas = document.getElementById("cnv");
 let ctx = canvas.getContext('2d');
-let fin = true;
-let tab_mots;
-let nb_erreurs = 0;
-let nb_mots = 0;
-let score = 10;
-//let lettres_ok = "AaBbCcDdEeFfGgHhIiJjKkLlMmOoNpPqQrRsStTuUvVwWxXyYzZ";
 let start = document.getElementById("btn");
 let underscore = [];
-let table = ["orchidoclaste","bacchanales","hemistiche","incrementation","acropole"];
+let table = ["orchidoclaste","bacchanales","hemistiche","incrementation","acropole","parnassien","hetaires","hecatonchires","metaphysique","aristotelicien"];
 let reponse;
 let box = document.querySelector("text");
 let count = 0;
@@ -38,7 +32,6 @@ function LesMots() {
     underscore = affichage.textContent.split("");
     console.log(underscore);
 }
-
 start.addEventListener("click", LesMots);
 
 ////////////// reception des touches///////////////
@@ -54,15 +47,17 @@ for (let i = 0; i < button.length; i++) {
     button[i].addEventListener("click", letter);
 }
 
+      
+
 ////////////////lettres trouvées dans le mot////////////////////
 function verify(){
     let lettreTrouvee = false ;
 
     for (let i = 0; i < box.length; i++) {
-        console.log(this.value+"button")
+        console.log(this.value+" button")
          
         if (this.value == box[i]) {
-           console.log(box[i]+"box")
+           console.log(box[i]+" box")
            underscore[i] = this.value;
            console.log(underscore[i] +" underscore");
            affichage.textContent = underscore.join(""); 
@@ -71,7 +66,8 @@ function verify(){
         }    
         }
         if(affichage.textContent == reponse){
-           affichage.textContent = "Gagné!"
+          alert("Gagné! Bravooo ! La puissance est en toi !!!!!!!!");
+           window.location.reload();
             
     }
     if(!lettreTrouvee)
@@ -79,12 +75,14 @@ function verify(){
            count++;
            console.log(count);
            this.style.backgroundColor = "red";
-        } 
+        }
+      
         ////////////////////////////////////dessin////////////////////////
 //pied
-if(count == 1){
-    ctx.beginPath();
-    ctx.moveTo(10,600); 
+if(count == 1){ 
+    ctx.lineWidth=2;
+    ctx.beginPath(); 
+    ctx.moveTo(10,600);
     ctx.lineTo(100,500);
     ctx.lineTo(200,600);
     //poteau
@@ -120,16 +118,15 @@ if(count == 1){
     ctx.stroke();
 
     if(count > 6){
-        alert("T'es mort booouuuh !")
+        alert("T'es mort booouuuh ! le mot était " + "[" + reponse + "]");
+        window.location.reload();
     }
-        
+    
+       
 }
 for (let i = 0; i < button.length; i++) {
     button[i].addEventListener("click", verify);
 }
-
-
-
 ////////////////// dessin progressif/////////////////
 
 
